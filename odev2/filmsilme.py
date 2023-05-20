@@ -7,7 +7,7 @@ def filmsilme():
         for satir in satirlar:
             bilgiler = satir.split(":")
             ad = bilgiler[0]
-            if ad.lower() != isim.lower():
+            if ad.lower() != isim.lower():#filmi burada girilen isim ile bulanan isim karşılaştırma ve eğer isim aynı değilse dosyaya yazdırma aynı ise yazdırmama yani silme işlemi.
                 f.write(satir)
 
 
