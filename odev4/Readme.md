@@ -49,3 +49,34 @@ Bu örnekte Orders adlı tabloya kayıt ekleyince tetiklenen bir trigger örneğ
 bu kod ile de trigger tetiklenebilir. Bu insert komutu ile Orders tablosuna kayıt eklenir ve trigger tetiklenir böylece OrdersHistory tablosuna da ilgili bilgiler kayıt edilmiş olur.
 
 
+
+Python ile veritabanı bağlantısı kurulduktan sonra python ile stored proceudure ve trigger nasıl ilişkilendirilebilir peki . Şöyle bir mantık oluşturulabilir:
+
+Cursor aracı ile biz bu bağlantıyı sağlayabiliriz. İlk python da bir cursor oluştururuz. Sonra bu cursor ile stored procedure ve triggerı cursorda bulunan execute komutu ile çağırabiliriz.
+Böylece python ile stored procedure ve trigger ı bağlamış oluruz. 
+
+Örnek vermek gerekirse:
+
+    import pyodbc
+
+    # Veritabanına bağlanma
+    conn = pyodbc.connect('Driver={SQL Server};Server=localhost;Database=MyDatabase;Trusted_Connection=yes;')
+
+    # Cursor (işaretçi) oluşturma
+    cursor = conn.cursor()
+
+    # Stored procedure çağırma
+    customer_id = 123
+    cursor.execute("EXEC GetCustomerOrders @CustomerId=?", customer_id)
+
+    # Sonuçları alın
+    results = cursor.fetchall()
+    for row in results:
+        print(row)
+
+    # Bağlantıyı kapatma
+    cursor.close()
+    conn.close()
+
+
+
