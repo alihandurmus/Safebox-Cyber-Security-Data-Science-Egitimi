@@ -12,26 +12,26 @@ Trigger’ın olumsuz etkileri ise karmaşık trigger yapıları kullanıldığ�
 
 Stored Procedure 'e örnek vermek gerekirse:
 
-CREATE PROCEDURE GetCustomerOrders
+    CREATE PROCEDURE GetCustomerOrders
     @CustomerId INT
-AS
-BEGIN
+    AS
+    BEGIN
     SELECT * FROM Orders WHERE CustomerId = @CustomerId
-END
+    END
 
 Bu stored procedure Customer id parametresini alacak ve girilen customer id sine göre orders tablosundan ilgili müşteriye ait siparişleri getirecek
 
-EXEC GetCustomerOrders @CustomerId = 123
+    EXEC GetCustomerOrders @CustomerId = 123
 
 Bu kod ile de stored procedure çağırılıp çalıştırılabilir . Burada 123 numaralı Customer id sine göre siparişleri getirecek
 
 Trigger'a bir örnek vermek gerekirse
 
-CREATE TRIGGER NewOrderTrigger
-ON Orders
-AFTER INSERT
-AS
-BEGIN
+    CREATE TRIGGER NewOrderTrigger
+    ON Orders
+    AFTER INSERT
+    AS
+    BEGIN
     -- Yeni eklenen kaydın bilgilerine erişmek için inserted tablosunu kullanabiliriz
     DECLARE @OrderId INT
     SELECT @OrderId = OrderId FROM inserted
@@ -39,12 +39,12 @@ BEGIN
     -- Yeni kayıt eklendiğinde yapılacak işlemler burada gerçekleştirilebilir
     INSERT INTO OrderHistory (OrderId, Action, Date)
     VALUES (@OrderId, 'New Order Created', GETDATE())
-END
+    END
 
 Bu örnekte Orders adlı tabloya kayıt ekleyince tetiklenen bir trigger örneği var. OrdersHistory adında başka bir tabloya OrderId eylemi ve işlem tarihini kaydeden bir kayıt ekler tetiklenince.
 
-INSERT INTO Orders (CustomerId, OrderDate, TotalAmount)
-VALUES (123, GETDATE(), 100.50)
+    INSERT INTO Orders (CustomerId, OrderDate, TotalAmount)
+    VALUES (123, GETDATE(), 100.50)
 
 bu kod ile de trigger tetiklenebilir. Bu insert komutu ile Orders tablosuna kayıt eklenir ve trigger tetiklenir böylece OrdersHistory tablosuna da ilgili bilgiler kayıt edilmiş olur.
 
