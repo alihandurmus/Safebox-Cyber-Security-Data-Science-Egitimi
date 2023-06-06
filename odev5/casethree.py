@@ -44,14 +44,9 @@ def delete_user():
 if __name__=="__main__":
     app.run(host='localhost',port=5000)
 
-#Dependencies
-from flask import Flask,render_template,session,redirect,url_for,jsonify,send_from_directory
 
 
-# App stuff
 
-
-#Routers
 
 
 
