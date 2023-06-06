@@ -17,7 +17,7 @@ def get_all_user():
     for user in users:
         user_list.append(str(user))
 
-    return render_template("index.html") + str(jsonify(user_list))
+    return jsonify(user_list)
 
 @app.route("/echo/<text>")
 def repeat(text):
@@ -32,7 +32,7 @@ def get_users_over_25():
     users = UsersCollection.find({'age':{'$gt':25}})
     user_list = []
     for user in users:
-        user_list.append(user)
+        user_list.append(str(user))
     return jsonify(user_list)
 
 @app.route('/deleteuser',methods=['POST','DELETE'])
